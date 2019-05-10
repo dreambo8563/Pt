@@ -9,9 +9,12 @@ import { AppConfig } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public electronService: ElectronService,
-    private translate: TranslateService) {
-
+  title: string;
+  constructor(
+    public electronService: ElectronService,
+    private translate: TranslateService
+  ) {
+    this.title = 'Tour of Heroes';
     this.translate.setDefaultLang('en');
     console.log('AppConfig', AppConfig);
 
