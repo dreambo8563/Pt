@@ -1,13 +1,21 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { runCodeCoverage } from './puppeteer/codeCoverage';
 
 let win: BrowserWindow;
 let serve: Boolean;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 
-function createWindow() {
+// regerister channel
+ipcMain.on('codeCoverage', async event => {
+  await runCodeCoverage();
+  event.sender.send('report', {
+    a: 'good'
+  });
+});
+async function createWindow() {
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -26,6 +34,7 @@ function createWindow() {
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
+
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(
