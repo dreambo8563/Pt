@@ -10,10 +10,8 @@ serve = args.some(val => val === '--serve');
 
 // regerister channel
 ipcMain.on('codeCoverage', async event => {
-  await runCodeCoverage();
-  event.sender.send('report', {
-    a: 'good'
-  });
+  const res = await runCodeCoverage();
+  event.sender.send('report', res);
 });
 async function createWindow() {
   const electronScreen = screen;

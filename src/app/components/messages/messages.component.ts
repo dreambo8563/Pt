@@ -13,12 +13,12 @@ export class MessagesComponent implements OnInit {
     public messageService: MessageService
   ) {}
 
-  ngOnInit() {}
-  collectCode() {
+  ngOnInit() {
     this.electron.ipcRenderer.on('report', (_: any, r: any) => {
       console.log('get  report in message', r);
     });
+  }
+  collectCode() {
     this.electron.ipcRenderer.send('codeCoverage', true);
-    // console.log(back);
   }
 }
