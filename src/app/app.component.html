@@ -1,7 +1,62 @@
-<h1>{{ title }}</h1>
+<!-- <h1>{{ title }}</h1>
 <nav>
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/heroes">Heroes</a>
-</nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages>
+</nav> -->
+<!-- <router-outlet></router-outlet> -->
+<!-- <app-messages></app-messages> -->
+
+<form class="search-form">
+  <mat-form-field class="url-input">
+    <input
+      name="url"
+      [(ngModel)]="url"
+      matInput
+      placeholder="Enter the website url starts with http(s)"
+    />
+  </mat-form-field>
+  <button [disabled]="searching" (click)="search()" mat-fab color="primary">
+    Search
+  </button>
+  <button *ngIf="dataSource.data.length" (click)="showLighthouse()" mat-button>
+    Lighthouse Report
+  </button>
+</form>
+<div class="contents">
+  <mat-spinner class="table-spinner" *ngIf="searching"></mat-spinner>
+  <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Url </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.url }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="jsUsed">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        JS Used
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.jsUsed | bytesToKB }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cssUsed">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        CSS Used
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.cssUsed | bytesToKB }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="shortSummary">
+      <mat-header-cell *matHeaderCellDef>Short Summary </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.usedBytes | bytesToKB }} /
+        {{ element.totalBytes | bytesToKB }} ({{ element.percentUsed }}%)
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

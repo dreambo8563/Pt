@@ -15,10 +15,7 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     this.electron.ipcRenderer.on('report', (_: any, r: any) => {
-      console.log('get  report in message', r);
+      // console.log('get  report in message', r);
     });
-  }
-  collectCode() {
-    this.electron.ipcRenderer.send('codeCoverage', true);
   }
 }

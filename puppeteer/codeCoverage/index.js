@@ -88,10 +88,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Run:
  *   URL=https://example.com node code_coverage.js
  */
-var index_1 = require("./index");
+var index_1 = require("../index");
 // const chalk = require('chalk');
 // const Table = require('cli-table');
-var URL = process.env.URL || 'https://www.baidu.com';
+// const URL = process.env.URL || 'https://www.baidu.com';
 var EVENTS = [
     //   'domcontentloaded',
     //   'load',
@@ -200,7 +200,7 @@ function addUsage(coverage, type, eventType) {
         finally { if (e_1) throw e_1.error; }
     }
 }
-function collectCoverage() {
+function collectCoverage(url) {
     return __awaiter(this, void 0, void 0, function () {
         var p, browser, collectPromises;
         var _this = this;
@@ -224,7 +224,7 @@ function collectCoverage() {
                                         ])];
                                 case 2:
                                     _b.sent();
-                                    return [4 /*yield*/, page.goto(URL, { waitUntil: event })];
+                                    return [4 /*yield*/, page.goto(url, { waitUntil: event })];
                                 case 3:
                                     _b.sent();
                                     return [4 /*yield*/, Promise.all([
@@ -250,12 +250,12 @@ function collectCoverage() {
         });
     });
 }
-function runCodeCoverage() {
+function runCodeCoverage(url) {
     return __awaiter(this, void 0, void 0, function () {
         var e_3, _a, summaryArr, _loop_1, stats_1, stats_1_1, _b, _, vals, totalBytes, totalUsedBytes, percentUsed;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, collectCoverage()];
+                case 0: return [4 /*yield*/, collectCoverage(url)];
                 case 1:
                     _c.sent();
                     summaryArr = [];
@@ -311,7 +311,6 @@ function runCodeCoverage() {
                         percentUsed = Math.round((totalUsedBytes / totalBytes) * 100);
                     });
                     stats.clear();
-                    console.log(stats);
                     return [2 /*return*/, {
                             summaryArr: summaryArr,
                             totalBytes: totalBytes,
@@ -323,4 +322,4 @@ function runCodeCoverage() {
     });
 }
 exports.runCodeCoverage = runCodeCoverage;
-//# sourceMappingURL=codeCoverage.js.map
+//# sourceMappingURL=index.js.map

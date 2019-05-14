@@ -28,3 +28,31 @@ nav a:hover {
 nav a.active {
   color: #039be5;
 }
+
+.search-form {
+  display: flex;
+  justify-content: space-between;
+  .url-input {
+    flex: 1;
+    margin-right: 100px;
+  }
+}
+.cdk-column-url {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 60%;
+  white-space: nowrap;
+  line-height: 48px;
+  display: inline-block;
+}
+
+.contents {
+  position: relative;
+  .table-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+}

@@ -27,11 +27,11 @@
  *   URL=https://example.com node code_coverage.js
  */
 
-import { Puppeteer } from './index';
+import { Puppeteer } from '../index';
 // const chalk = require('chalk');
 // const Table = require('cli-table');
 
-const URL = process.env.URL || 'https://www.baidu.com';
+// const URL = process.env.URL || 'https://www.baidu.com';
 
 const EVENTS = [
   //   'domcontentloaded',
@@ -134,7 +134,7 @@ function addUsage(coverage, type, eventType) {
   }
 }
 
-async function collectCoverage() {
+async function collectCoverage(url: string) {
   const p = new Puppeteer();
   const browser = await p.init();
 
@@ -148,7 +148,7 @@ async function collectCoverage() {
       page.coverage.startCSSCoverage()
     ]);
 
-    await page.goto(URL, { waitUntil: event });
+    await page.goto(url, { waitUntil: event });
     // await page.waitForNavigation({waitUntil: event});
 
     const [jsCoverage, cssCoverage] = await Promise.all([
@@ -167,8 +167,8 @@ async function collectCoverage() {
   return browser.close();
 }
 
-export async function runCodeCoverage() {
-  await collectCoverage();
+export async function runCodeCoverage(url: string) {
+  await collectCoverage(url);
   const summaryArr = [];
   for (const [_, vals] of stats) {
     EVENTS.forEach(event => {

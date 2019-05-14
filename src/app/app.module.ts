@@ -22,6 +22,17 @@ import { HeroesComponent } from './components/heroes/heroes.component';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatTableModule,
+  MatSelectModule,
+  MatProgressSpinnerModule,
+  MatSortModule
+} from '@angular/material';
+import { BytesToKBPipe } from './pipes/bytesToKB';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,9 +46,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebviewDirective,
     HeroDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    BytesToKBPipe
   ],
   imports: [
+    MatFormFieldModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTableModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -48,7 +67,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [ElectronService],
   bootstrap: [AppComponent]

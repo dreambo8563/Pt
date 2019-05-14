@@ -1,32 +1,31 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { runCodeCoverage } from './puppeteer/codeCoverage';
+import { registerMainChannels } from './puppeteer/service';
+
+import './notification';
 
 let win: BrowserWindow;
 let serve: Boolean;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 
-// regerister channel
-ipcMain.on('codeCoverage', async event => {
-  const res = await runCodeCoverage();
-  event.sender.send('report', res);
-});
 async function createWindow() {
-  const electronScreen = screen;
-  const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
   // Create the browser window.
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
+    // width: size.width,
+    // height: size.height,
+    fullscreen: true,
+    minWidth: 1024,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    darkTheme: true
   });
+
+  registerMainChannels(win);
 
   if (serve) {
     require('electron-reload')(__dirname, {
@@ -43,10 +42,10 @@ async function createWindow() {
       })
     );
   }
-
-  if (serve) {
-    win.webContents.openDevTools();
-  }
+  win.webContents.openDevTools();
+  // if (serve) {
+  //   win.webContents.openDevTools();
+  // }
 
   // Emitted when the window is closed.
   win.on('closed', () => {
