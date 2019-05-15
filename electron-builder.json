@@ -25,7 +25,7 @@
   },
   "mac": {
     "icon": "dist",
-    "target": ["dmg"],
+    "target": ["tar.gz"],
     "publish": ["github"]
   },
   "linux": {
