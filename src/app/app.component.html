@@ -15,10 +15,21 @@
       placeholder="Enter the website url starts with http(s)"
     />
   </mat-form-field>
-  <button [disabled]="searching" (click)="search()" mat-fab color="primary">
+  <button
+    [@searchStates]="searching ? 'searching' : 'done'"
+    [disabled]="searching"
+    (click)="search()"
+    mat-fab
+    color="primary"
+  >
     Search
   </button>
-  <button *ngIf="dataSource.data.length" (click)="showLighthouse()" mat-button>
+  <button
+    @lighthouseBtnAnim
+    *ngIf="dataSource.data.length"
+    (click)="showLighthouse()"
+    mat-button
+  >
     Lighthouse Report
   </button>
 </form>

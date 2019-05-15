@@ -2,6 +2,14 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { ElectronService } from './providers/electron.service';
 import { AppConfig } from '../environments/environment';
 import { MatTableDataSource, MatSort } from '@angular/material';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  state,
+  keyframes
+} from '@angular/animations';
 
 // import { FormControl, Validators } from '@angular/forms';
 export interface CoverageRow {
@@ -14,7 +22,33 @@ export interface CoverageRow {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('lighthouseBtnAnim', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('3s', style({ opacity: 1 }))
+      ])
+    ]),
+    trigger('searchStates', [
+      state(
+        'searching',
+        style({
+          transform: 'scale(0.1)',
+          opacity: 0.5
+        })
+      ),
+      state(
+        'done',
+        style({
+          transform: 'scale(1)',
+          opacity: 1
+        })
+      ),
+      transition('done => searching', [animate('1s')]),
+      transition('searching => done', [animate('0.5s')])
+    ])
+  ]
 })
 export class AppComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;

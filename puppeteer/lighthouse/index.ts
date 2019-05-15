@@ -35,11 +35,11 @@ import { Puppeteer } from '../index';
 const lighthouse = require('lighthouse');
 // const ReportGenerator = require('lighthouse/lighthouse-core/report/v2/report-generator');
 import * as fs from 'fs';
+import * as path from 'path';
 import { URL } from 'url';
+import { app, remote, Notification } from 'electron';
 
-export async function runLoghthouse(url: string) {
-  // const url = 'https://www.baidu.com';
-
+export async function runLighthouse(url: string) {
   // Use Puppeteer to launch headless Chrome.
   const p = new Puppeteer();
   const browser = await p.init();
@@ -56,7 +56,7 @@ export async function runLoghthouse(url: string) {
       await client.send('Network.emulateNetworkConditions', {
         offline: false,
         // values of 0 remove any active throttling. crbug.com/456324#c9
-        latency: 800,
+        latency: 0,
         downloadThroughput: Math.floor((1.6 * 1024 * 1024) / 8), // 1.6Mbps
         uploadThroughput: Math.floor((750 * 1024) / 8) // 750Kbps
       });
@@ -68,14 +68,22 @@ export async function runLoghthouse(url: string) {
   const { report } = await lighthouse(url, {
     port: remoteDebugPort,
     output: 'html',
-    logLevel: 'info',
+    // logLevel: 'info',
     disableNetworkThrottling: true
     //  disableCpuThrottling: true,
     //  disableDeviceEmulation: true,
   });
+  const userDataPath = (app || remote.app).getPath('userData');
 
-  // Save html report.
-  fs.writeFileSync('results.html', report);
+  try {
+    fs.writeFileSync(path.join(userDataPath, 'results.html'), report);
+  } catch (error) {
+    const e = new Notification({
+      title: 'Writing Lighthouse Report Error',
+      body: error
+    });
+    e.show();
+  }
   await browser.close();
   // return report;
 }

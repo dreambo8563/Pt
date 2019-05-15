@@ -1,8 +1,9 @@
 import { runCodeCoverage } from './codeCoverage';
-import { runLoghthouse } from './lighthouse';
-import { ipcMain, BrowserWindow, screen } from 'electron';
+import { runLighthouse } from './lighthouse';
+import { ipcMain, BrowserWindow, screen, app, remote } from 'electron';
 import * as url from 'url';
 import * as path from 'path';
+import * as fs from 'fs';
 
 export function registerMainChannels(win) {
   // regerister channel
@@ -10,7 +11,7 @@ export function registerMainChannels(win) {
     try {
       const [res, _] = await Promise.all([
         runCodeCoverage(u),
-        runLoghthouse(u)
+        runLighthouse(u)
       ]);
 
       event.sender.send('report', {
@@ -23,6 +24,11 @@ export function registerMainChannels(win) {
 
   // regerister channel
   ipcMain.on('lighthouse.report', event => {
+    const userDataPath = (app || remote.app).getPath('userData');
+    const p = path.join(userDataPath, 'results.html');
+
+    // Save html report.
+
     const { width, height } = screen.getPrimaryDisplay().size;
     const child = new BrowserWindow({
       parent: win,
@@ -35,9 +41,10 @@ export function registerMainChannels(win) {
       darkTheme: true
       //   minWidth: 700
     });
+
     child.loadURL(
       url.format({
-        pathname: path.join(__dirname, '..', 'results.html'),
+        pathname: p,
         protocol: 'file:',
         slashes: true
       })

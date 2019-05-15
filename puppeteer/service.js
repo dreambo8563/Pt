@@ -67,7 +67,7 @@ function registerMainChannels(win) {
                     _b.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, Promise.all([
                             codeCoverage_1.runCodeCoverage(u),
-                            lighthouse_1.runLoghthouse(u)
+                            lighthouse_1.runLighthouse(u)
                         ])];
                 case 1:
                     _a = __read.apply(void 0, [_b.sent(), 2]), res = _a[0], _ = _a[1];
@@ -85,6 +85,9 @@ function registerMainChannels(win) {
     }); });
     // regerister channel
     electron_1.ipcMain.on('lighthouse.report', function (event) {
+        var userDataPath = (electron_1.app || electron_1.remote.app).getPath('userData');
+        var p = path.join(userDataPath, 'results.html');
+        // Save html report.
         var _a = electron_1.screen.getPrimaryDisplay().size, width = _a.width, height = _a.height;
         var child = new electron_1.BrowserWindow({
             parent: win,
@@ -98,7 +101,7 @@ function registerMainChannels(win) {
             //   minWidth: 700
         });
         child.loadURL(url.format({
-            pathname: path.join(__dirname, '..', 'results.html'),
+            pathname: p,
             protocol: 'file:',
             slashes: true
         }));

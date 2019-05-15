@@ -70,10 +70,12 @@ var index_1 = require("../index");
 var lighthouse = require('lighthouse');
 // const ReportGenerator = require('lighthouse/lighthouse-core/report/v2/report-generator');
 var fs = require("fs");
+var path = require("path");
 var url_1 = require("url");
-function runLoghthouse(url) {
+var electron_1 = require("electron");
+function runLighthouse(url) {
     return __awaiter(this, void 0, void 0, function () {
-        var p, browser, remoteDebugPort, report;
+        var p, browser, remoteDebugPort, report, userDataPath, e;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -100,7 +102,7 @@ function runLoghthouse(url) {
                                     return [4 /*yield*/, client.send('Network.emulateNetworkConditions', {
                                             offline: false,
                                             // values of 0 remove any active throttling. crbug.com/456324#c9
-                                            latency: 800,
+                                            latency: 0,
                                             downloadThroughput: Math.floor((1.6 * 1024 * 1024) / 8),
                                             uploadThroughput: Math.floor((750 * 1024) / 8) // 750Kbps
                                         })];
@@ -115,15 +117,24 @@ function runLoghthouse(url) {
                     return [4 /*yield*/, lighthouse(url, {
                             port: remoteDebugPort,
                             output: 'html',
-                            logLevel: 'info',
+                            // logLevel: 'info',
                             disableNetworkThrottling: true
                             //  disableCpuThrottling: true,
                             //  disableDeviceEmulation: true,
                         })];
                 case 2:
                     report = (_a.sent()).report;
-                    // Save html report.
-                    fs.writeFileSync('results.html', report);
+                    userDataPath = (electron_1.app || electron_1.remote.app).getPath('userData');
+                    try {
+                        fs.writeFileSync(path.join(userDataPath, 'results.html'), report);
+                    }
+                    catch (error) {
+                        e = new electron_1.Notification({
+                            title: 'Writing Lighthouse Report Error',
+                            body: error
+                        });
+                        e.show();
+                    }
                     return [4 /*yield*/, browser.close()];
                 case 3:
                     _a.sent();
@@ -132,5 +143,5 @@ function runLoghthouse(url) {
         });
     });
 }
-exports.runLoghthouse = runLoghthouse;
+exports.runLighthouse = runLighthouse;
 //# sourceMappingURL=index.js.map
