@@ -4,13 +4,12 @@ body {
   margin: 0;
   padding: 0;
 
-  height: 100%;
+  height: calc(100vh - 100px);
   background-color: rgb(48, 48, 48);
   color: white;
 }
 
-html,
-body {
+html {
   height: 100%;
 }
 body {

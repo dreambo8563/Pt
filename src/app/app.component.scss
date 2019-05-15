@@ -48,6 +48,8 @@ nav a.active {
 
 .contents {
   position: relative;
+  height: calc(100vh - 100px - 70px);
+  overflow: auto;
   .table-spinner {
     position: fixed;
     left: 50%;
