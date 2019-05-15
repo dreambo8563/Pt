@@ -19,17 +19,35 @@
     "!tsconfig.json",
     "!tslint.json"
   ],
+  "appId": "com.dreambo8563.pt",
   "win": {
     "icon": "dist",
     "target": ["portable"]
   },
+  "dmg": {
+    "icon": "dist",
+    "publish": ["github"],
+    "contents": [
+      {
+        "x": 130,
+        "y": 220
+      },
+      {
+        "x": 410,
+        "y": 220,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ]
+  },
   "mac": {
     "icon": "dist",
-    "target": ["tar.gz"],
+    "target": ["dmg"],
     "publish": ["github"]
   },
   "linux": {
     "icon": "dist",
-    "target": ["AppImage"]
+    "target": ["AppImage"],
+    "category": "Utility"
   }
 }
