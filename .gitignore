@@ -5,7 +5,7 @@
 /tmp
 /out-tsc
 /app-builds
-/release
+# /release
 main.js
 src/**/*.js
 !src/karma.conf.js
@@ -38,7 +38,7 @@ src/**/*.js
 npm-debug.log
 testem.log
 /typings
-package-lock.json
+# package-lock.json
 
 # e2e
 /e2e/*.js

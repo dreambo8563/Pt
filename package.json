@@ -1,18 +1,19 @@
 {
-  "name": "perfomance-dashboard",
-  "version": "5.1.0",
-  "description": "Angular 7 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
-  "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
-  },
+  "name": "pt",
+  "version": "1.0.0",
+  "description": "Web page Performance Report",
+  "homepage": "https://github.com/dreambo8563/Pt",
+  "author": "dreambo8563",
   "keywords": [
     "angular",
     "angular 7",
     "electron",
     "typescript",
-    "sass"
+    "sass",
+    "web",
+    "page",
+    "performance",
+    "lighthouse"
   ],
   "main": "main.js",
   "private": true,

@@ -88,10 +88,12 @@ function runLighthouse(url) {
                     // Watch for Lighthouse to open url, then customize network conditions.
                     // Note: re-establishes throttle settings every time LH reloads the page. Shooooould be ok :)
                     browser.on('targetchanged', function (target) { return __awaiter(_this, void 0, void 0, function () {
-                        var page, client;
+                        var page, client, error_1, e;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, target.page()];
+                                case 0:
+                                    _a.trys.push([0, 5, , 6]);
+                                    return [4 /*yield*/, target.page()];
                                 case 1:
                                     page = _a.sent();
                                     if (!(page && page.url() === url)) return [3 /*break*/, 4];
@@ -110,7 +112,16 @@ function runLighthouse(url) {
                                     // await client.send('Network.enable'); // Already enabled by pptr.
                                     _a.sent();
                                     _a.label = 4;
-                                case 4: return [2 /*return*/];
+                                case 4: return [3 /*break*/, 6];
+                                case 5:
+                                    error_1 = _a.sent();
+                                    e = new electron_1.Notification({
+                                        title: 'Lighthouse Testing Error',
+                                        body: error_1
+                                    });
+                                    e.show();
+                                    return [3 /*break*/, 6];
+                                case 6: return [2 /*return*/];
                             }
                         });
                     }); });

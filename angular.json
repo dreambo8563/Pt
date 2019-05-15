@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-electron": {
+    "pt": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -70,21 +70,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "pt:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "angular-electron:build:dev"
+              "browserTarget": "pt:build:dev"
             },
             "production": {
-              "browserTarget": "angular-electron:build:production"
+              "browserTarget": "pt:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "pt:build"
           }
         },
         "test": {
@@ -112,13 +112,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -130,18 +125,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     }
   },
-  "defaultProject": "angular-electron",
+  "defaultProject": "pt",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

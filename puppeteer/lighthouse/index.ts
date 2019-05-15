@@ -48,18 +48,26 @@ export async function runLighthouse(url: string) {
   // Watch for Lighthouse to open url, then customize network conditions.
   // Note: re-establishes throttle settings every time LH reloads the page. Shooooould be ok :)
   browser.on('targetchanged', async target => {
-    const page = await target.page();
+    try {
+      const page = await target.page();
 
-    if (page && page.url() === url) {
-      const client = await page.target().createCDPSession();
-      // await client.send('Network.enable'); // Already enabled by pptr.
-      await client.send('Network.emulateNetworkConditions', {
-        offline: false,
-        // values of 0 remove any active throttling. crbug.com/456324#c9
-        latency: 0,
-        downloadThroughput: Math.floor((1.6 * 1024 * 1024) / 8), // 1.6Mbps
-        uploadThroughput: Math.floor((750 * 1024) / 8) // 750Kbps
+      if (page && page.url() === url) {
+        const client = await page.target().createCDPSession();
+        // await client.send('Network.enable'); // Already enabled by pptr.
+        await client.send('Network.emulateNetworkConditions', {
+          offline: false,
+          // values of 0 remove any active throttling. crbug.com/456324#c9
+          latency: 0,
+          downloadThroughput: Math.floor((1.6 * 1024 * 1024) / 8), // 1.6Mbps
+          uploadThroughput: Math.floor((750 * 1024) / 8) // 750Kbps
+        });
+      }
+    } catch (error) {
+      const e = new Notification({
+        title: 'Lighthouse Testing Error',
+        body: error
       });
+      e.show();
     }
   });
 
