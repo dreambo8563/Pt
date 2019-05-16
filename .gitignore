@@ -7,8 +7,13 @@
 /app-builds
 /release
 main.js
+main.map
 src/**/*.js
+src/**/*.map
 puppeteer/**/*.js
+notification/**/*.js
+puppeteer/**/*.map
+notification/**/*.map
 !src/karma.conf.js
 *.js.map
 
