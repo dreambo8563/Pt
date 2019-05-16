@@ -1,5 +1,15 @@
+## <small>1.0.1 (2019-05-16)</small>
+
+* feat(menu): register menu ([2e49671](https://github.com/dreambo8563/angular-electron-hero/commit/2e49671))
+* chore(gitignore): ([5653c15](https://github.com/dreambo8563/angular-electron-hero/commit/5653c15))
+* chore(devtool): just for dev ([51537aa](https://github.com/dreambo8563/angular-electron-hero/commit/51537aa))
+* docs(cleanup): rm result.html ([54cd39a](https://github.com/dreambo8563/angular-electron-hero/commit/54cd39a))
+
+
+
 ## 1.0.0-beta.3 (2019-05-16)
 
+* 1.0.0-beta.3 ([72a4371](https://github.com/dreambo8563/angular-electron-hero/commit/72a4371))
 
 
 
