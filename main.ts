@@ -2,7 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { registerMainChannels } from './puppeteer/service';
-
+import { initMenu } from './menu';
 import './notification';
 
 let win: BrowserWindow;
@@ -42,7 +42,7 @@ async function createWindow() {
       })
     );
   }
-
+  initMenu();
   if (serve) {
     win.webContents.openDevTools();
   }

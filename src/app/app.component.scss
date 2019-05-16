@@ -45,7 +45,9 @@ nav a.active {
   line-height: 48px;
   display: inline-block;
 }
-
+.cdk-column-shortSummary {
+  min-width: 160px;
+}
 .contents {
   position: relative;
   height: calc(100vh - 100px - 70px);

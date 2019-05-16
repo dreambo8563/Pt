@@ -30,7 +30,11 @@
   <mat-table matSort [dataSource]="dataSource">
     <ng-container matColumnDef="url">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Url </mat-header-cell>
-      <mat-cell class="url-row" *matCellDef="let element">
+      <mat-cell
+        [attr.title]="element.url"
+        class="url-row"
+        *matCellDef="let element"
+      >
         {{ element.url }}
         <div
           @distributionShowTrigger
@@ -66,7 +70,7 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="shortSummary">
+    <ng-container class="summary-row" matColumnDef="shortSummary">
       <mat-header-cell *matHeaderCellDef>Short Summary </mat-header-cell>
       <mat-cell *matCellDef="let element">
         {{ element.usedBytes | bytesToKB }} /

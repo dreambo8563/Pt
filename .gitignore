@@ -14,6 +14,8 @@ puppeteer/**/*.js
 notification/**/*.js
 puppeteer/**/*.map
 notification/**/*.map
+menu/**/*.js
+menu/**/*.map
 !src/karma.conf.js
 *.js.map
 
