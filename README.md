@@ -34,7 +34,7 @@ Pt is a simple tool to generate the basic performance report of your website.
 - Part2:
   you can review the lighthouse report which will give you directions on optimizing your page
 
-#### Tools Related
+### Tools Related
 
 - Angular 7
 - Material UI
@@ -42,3 +42,8 @@ Pt is a simple tool to generate the basic performance report of your website.
 - Electronjs
 - SCSS
 - Puppeteer
+
+### Note
+
+Please make sure you have chrome installed on your machine
+Pt will launch your chrome the generate the data.
