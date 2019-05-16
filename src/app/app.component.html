@@ -27,13 +27,27 @@
 </form>
 <div class="contents">
   <mat-spinner class="table-spinner" *ngIf="searching"></mat-spinner>
-  <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Position Column -->
-
+  <mat-table matSort [dataSource]="dataSource">
     <ng-container matColumnDef="url">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Url </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.url }} </mat-cell>
+      <mat-cell class="url-row" *matCellDef="let element">
+        {{ element.url }}
+        <div
+          @distributionShowTrigger
+          *ngIf="element.jsUsed || element.cssUsed"
+          class="distribution"
+        >
+          <div title="JS Used" [style.width]="jsLeft(element)" class="js"></div>
+          <div
+            title="CSS Used"
+            [style.width]="cssLeft(element)"
+            class="css"
+          ></div>
+          <div title="Unused" class="unused"></div>
+        </div>
+      </mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="jsUsed">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         JS Used
@@ -42,6 +56,7 @@
         {{ element.jsUsed | bytesToKB }}
       </mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="cssUsed">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
         CSS Used
@@ -62,6 +77,8 @@
     <mat-header-row
       *matHeaderRowDef="displayedColumns; sticky: true"
     ></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <mat-row class="row-item" *matRowDef="let row; columns: displayedColumns">
+    </mat-row>
   </mat-table>
 </div>

@@ -58,3 +58,32 @@ nav a.active {
     z-index: 2;
   }
 }
+.url-row {
+  position: relative;
+  .distribution {
+    position: absolute;
+    content: '';
+    height: 5px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    .js {
+      transition: all 1s;
+      background: #1eb35c;
+      height: 5px;
+      float: left;
+      width: 0%;
+    }
+    .css {
+      transition: all 1s;
+      background: #c281e0;
+      height: 5px;
+      float: left;
+      width: 0%;
+    }
+    .unused {
+      height: 5px;
+      background: dimgray;
+    }
+  }
+}

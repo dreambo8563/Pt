@@ -7,8 +7,7 @@ import {
   transition,
   style,
   animate,
-  state,
-  keyframes
+  state
 } from '@angular/animations';
 
 // import { FormControl, Validators } from '@angular/forms';
@@ -17,6 +16,8 @@ export interface CoverageRow {
   jsUsed: number;
   cssUsed: number;
   shortSummary: string;
+  totalBytes: number;
+  usedBytes: number;
 }
 
 @Component({
@@ -47,6 +48,12 @@ export interface CoverageRow {
       ),
       transition('done => searching', [animate('1s')]),
       transition('searching => done', [animate('0.5s')])
+    ]),
+    trigger('distributionShowTrigger', [
+      transition(':enter', [
+        style({ width: 0, height: 0 }),
+        animate('1.5s', style({ width: '100%', height: '5px' }))
+      ])
     ])
   ]
 })
@@ -74,18 +81,30 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    // this.dataSource.data = [
+    //   {
+    //     url: 'dsfsd',
+    //     jsUsed: 11,
+    //     cssUsed: 22,
+    //     shortSummary: 'ss',
+    //     usedBytes: 33,
+    //     totalBytes: 55
+    //   }
+    // ];
     this.electronService.ipcRenderer.on('report', (_: any, r: any) => {
       this.searching = false;
       const { coverage } = r;
       this.dataSource.data = coverage.summaryArr.map(
-        ({ url, jsUsed, cssUsed, usedBytes, totalBytes, percentUsed }) => ({
-          url,
-          jsUsed,
-          cssUsed,
-          usedBytes,
-          totalBytes,
-          percentUsed
-        })
+        ({ url, jsUsed, cssUsed, usedBytes, totalBytes, percentUsed }) => {
+          return {
+            url,
+            jsUsed,
+            cssUsed,
+            usedBytes,
+            totalBytes,
+            percentUsed
+          };
+        }
       );
 
       this.refresPage();
@@ -136,5 +155,18 @@ export class AppComponent implements OnInit {
       return false;
     }
     return true;
+  }
+  jsLeft(r: CoverageRow) {
+    return this.usedPercent(r.jsUsed, r.totalBytes);
+  }
+
+  cssLeft(r: CoverageRow) {
+    return this.usedPercent(r.cssUsed, r.totalBytes);
+  }
+
+  usedPercent(v: number, t: number) {
+    const per = v / t;
+    const rt = `${per * 100}%`;
+    return rt;
   }
 }
