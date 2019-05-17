@@ -2,10 +2,8 @@ os: unstable
 cache:
   - node_modules
 environment:
-  GH_TOKEN:
-    secure: fK836CflhDBugnKO8/6bb/97NGIsR/E8Y3e
   matrix:
-    - nodejs_version: 6
+    - nodejs_version: 10
 install:
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
