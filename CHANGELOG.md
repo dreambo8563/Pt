@@ -1,7 +1,18 @@
+## <small>1.0.2 (2019-05-17)</small>
+
+* ci(windows): node version ([d189a16](https://github.com/dreambo8563/angular-electron-hero/commit/d189a16))
+* ci(windows): test ([8b38099](https://github.com/dreambo8563/angular-electron-hero/commit/8b38099))
+* docs(readme): chrome note ([ebbe269](https://github.com/dreambo8563/angular-electron-hero/commit/ebbe269))
+* docs(readme): some guide ([addea21](https://github.com/dreambo8563/angular-electron-hero/commit/addea21))
+* docs(readme): update structure and add logo ([0891966](https://github.com/dreambo8563/angular-electron-hero/commit/0891966))
+
+
+
 ## <small>1.0.1 (2019-05-16)</small>
 
-* feat(menu): register menu ([2e49671](https://github.com/dreambo8563/angular-electron-hero/commit/2e49671))
+* 1.0.1 ([543d2ec](https://github.com/dreambo8563/angular-electron-hero/commit/543d2ec))
 * chore(gitignore): ([5653c15](https://github.com/dreambo8563/angular-electron-hero/commit/5653c15))
+* feat(menu): register menu ([2e49671](https://github.com/dreambo8563/angular-electron-hero/commit/2e49671))
 * chore(devtool): just for dev ([51537aa](https://github.com/dreambo8563/angular-electron-hero/commit/51537aa))
 * docs(cleanup): rm result.html ([54cd39a](https://github.com/dreambo8563/angular-electron-hero/commit/54cd39a))
 
